@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Form</title>
 
   <style>
@@ -69,8 +69,7 @@
       cursor: pointer;
     }
 
-    input[type="submit"]:hover,
-    #existing:hover {
+    input[type="submit"]:hover {
       background: #3730a3;
     }
 
@@ -87,33 +86,42 @@
 </head>
 
 <body>
+
   <div class="login-container">
+
     <h1>Login Form</h1>
 
     <form id="loginForm">
+
       <input
         type="text"
         id="username"
         placeholder="Username"
-      />
+      >
 
       <input
         type="password"
         id="password"
         placeholder="Password"
-      />
+      >
 
       <div class="remember-section">
-        <input type="checkbox" id="checkbox" />
+        <input type="checkbox" id="checkbox">
         <label for="checkbox">Remember me.</label>
       </div>
 
-      <input type="submit" id="submit" value="Submit" />
+      <input
+        type="submit"
+        id="submit"
+        value="Submit"
+      >
+
     </form>
 
     <button id="existing" type="button">
       Login as existing user
     </button>
+
   </div>
 
   <script>
@@ -121,44 +129,51 @@
     const username = document.getElementById("username");
     const password = document.getElementById("password");
     const checkbox = document.getElementById("checkbox");
-    const existingButton = document.getElementById("existing");
+    const existing = document.getElementById("existing");
 
-    function updateExistingButton() {
+    // Check if credentials already exist
+    function checkExistingUser() {
       const savedUsername = localStorage.getItem("username");
       const savedPassword = localStorage.getItem("password");
 
       if (savedUsername && savedPassword) {
-        existingButton.style.display = "block";
+        existing.style.display = "block";
       } else {
-        existingButton.style.display = "none";
+        existing.style.display = "none";
       }
     }
 
-    updateExistingButton();
+    // Check when page loads
+    checkExistingUser();
 
-    form.addEventListener("submit", function (event) {
+    // Submit login form
+    form.addEventListener("submit", function(event) {
       event.preventDefault();
 
-      alert(`Logged in as ${username.value}`);
+      alert("Logged in as " + username.value);
 
       if (checkbox.checked) {
+        // Save credentials
         localStorage.setItem("username", username.value);
         localStorage.setItem("password", password.value);
       } else {
+        // Remove previously saved credentials
         localStorage.removeItem("username");
         localStorage.removeItem("password");
       }
 
-      updateExistingButton();
+      checkExistingUser();
     });
 
-    existingButton.addEventListener("click", function () {
+    // Login as existing user
+    existing.addEventListener("click", function() {
       const savedUsername = localStorage.getItem("username");
 
       if (savedUsername) {
-        alert(`Logged in as ${savedUsername}`);
+        alert("Logged in as " + savedUsername);
       }
     });
   </script>
+
 </body>
 </html>
